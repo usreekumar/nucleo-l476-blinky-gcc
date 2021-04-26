@@ -11,16 +11,16 @@
 *
 *********************************************************************************/
 
-
-#include "system_cfg.h"
-#include "gpio_stm32.h"
+#include "main.h"
 
 int main( void )
 {
 
-	system_initlialize();
+	SystemInitiaize();
 
 	while(1){
 
+		GPIO_TogglePin(GPIOA, 5); /*Toggle the pin PA.5*/
+		HAL_Delay(DEF_TOGGLE_DELAY);
 	}
 }

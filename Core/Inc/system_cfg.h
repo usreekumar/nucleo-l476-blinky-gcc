@@ -1,3 +1,3 @@
 #include "stm32l476xx.h"
 
-void system_initlialize(void);
+void SystemInitiaize(void);
