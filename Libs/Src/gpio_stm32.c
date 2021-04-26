@@ -1,5 +1,10 @@
 #include "gpio_stm32.h"
 
+void GPIO_Init()
+{
+
+}
+
 /*****************************************************************************
 
 	@explaination	BSRR  Register : Bit set and reset register (GPIOx_ BSRR) 
@@ -9,9 +14,6 @@
 					register resets te pin
 	
 ********************************************************-*********************/
-
-
-
 void GPIO_TogglePin(GPIO_TypeDef* GPIO_Port, uint8_t GPIO_Pin)
 {
 	if(GPIO_Port->ODR & GPIO_PIN_MASK(GPIO_Pin) ==  0u)
