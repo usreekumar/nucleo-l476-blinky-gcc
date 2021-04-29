@@ -15,12 +15,16 @@
 
 int main( void )
 {
-
+	uint32_t delay = DEF_TOGGLE_DELAY;
 	SystemInitiaize();
 
-	while(1){
-
+	while(1)
+	{
 		GPIO_TogglePin(GPIOA, 5); /*Toggle the pin PA.5*/
-		HAL_Delay(DEF_TOGGLE_DELAY);
+		
+		/* Need to implement a custom delay function*/
+		while(delay--);
+		delay = DEF_TOGGLE_DELAY;
+
 	}
 }
