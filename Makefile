@@ -13,20 +13,17 @@ SRCS_DIR += ./Drivers/CMSIS/Device/Src
 BUILD_DIR = ./build
 EXECUTABLE = $(BUILD_DIR)/exe
 
-# Use the gcc compiler
-CC = /home/umamaheswaran/Embedded/tools/gcc-arm-none-eabi-10-2020-q4-major/bin/arm-none-eabi-gcc
-
 #Adding -I flags before the include folders to let the compiler know the paths to search 
 INCLUDES := $(addprefix -I, $(INCS_DIR))
-
 # Getting all the files with .c extenstion in the source directories
-# find is a shell cmd for searching the directory tree rooted at each given starting-point
-# -name flag specfies the files to seach for. Here 'find' cmd will find all the *.c files in src directories, ie all src files
 SRCS     := $(shell find $(SRCS_DIR) -name *.c)
 
+# Use the gcc compiler
+CC = /home/umamaheswaran/Embedded/tools/gcc-arm-none-eabi-10-2020-q4-major/bin/arm-none-eabi-gcc
+#Path to st-flash executable
+STFLASH = /home/umamaheswaran/Embedded/tools/stlink/bin/st-flash
+
 # Compiling and creating an executable with the name exe in the build directoy
-# $@ will give the name of the target => herr $@ will be replaced by ./build/exe
-# -o flag is to specify the exeutable name and path
 $(EXECUTABLE):
 	$(CC) $(INCLUDES) $(SRCS) -o $@
 
