@@ -16,7 +16,7 @@
 int main( void )
 {
 	uint32_t delay = DEF_TOGGLE_DELAY;
-	SystemInitiaize();
+	SystemInitialize();
 
 	while(1)
 	{
