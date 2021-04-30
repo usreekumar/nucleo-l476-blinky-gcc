@@ -1,5 +1,5 @@
 # nucleo-l476-blinky-gcc
-This project is intended to be used as a tutorial to start working on embedded systems programming in Linux. 
+This project is intended to be used as a tutorial to start working on embedded systems programming without IDE. 
 
 ## My System Details
 OS : Ubuntu 20.04
