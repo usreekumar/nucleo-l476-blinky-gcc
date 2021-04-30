@@ -70,7 +70,11 @@ CFLAGS += -mlittle-endian -mthumb -mcpu=cortex-m4 -mthumb-interwork
 CFLAGS += -mfloat-abi=hard -mfpu=fpv4-sp-d16
 
 # Linker Related stuff. Tells which linker file to use.
-LFLAGS = -TSTM32L476RGTX_FLASH.ld
+# non-semihosting/retarget
+# If you are using retarget, linking like:
+# $ arm-none-eabi-gcc --specs=nosys.specs $(OTHER_LINK_OPTIONS)
+# Ref : https://stackoverflow.com/questions/19419782/exit-c-text0x18-undefined-reference-to-exit-when-using-arm-none-eabi-gcc
+LFLAGS = --specs=nosys.specs -TSTM32L476RGTX_FLASH.ld #-TSTM32L476RGTX_RAM.ld
 
 # Compilations process
 
@@ -81,9 +85,9 @@ LFLAGS = -TSTM32L476RGTX_FLASH.ld
 $(PROJ_NAME): $(PROJ_NAME).elf
 
 $(PROJ_NAME).elf: $(SRCS)
-	$(CC) $(INCLUDES) $(DEFS) $(CFLAGS) $(LFLAGS) $^ -o BUILD_DIR/$@
-	$(OBJCOPY) -O ihex BUILD_DIR/$(PROJ_NAME).elf   $(PROJ_NAME).hex
-	$(OBJCOPY) -O binary BUILD_DIR/$(PROJ_NAME).elf $(PROJ_NAME).bin
+	@$(CC) $(INCLUDES) $(DEFS) $(CFLAGS) $(LFLAGS) $^ -o $(BUILD_DIR)/$@
+	@$(OBJCOPY) -O ihex $(BUILD_DIR)/$(PROJ_NAME).elf   $(BUILD_DIR)/$(PROJ_NAME).hex
+	@$(OBJCOPY) -O binary $(BUILD_DIR)/$(PROJ_NAME).elf $(BUILD_DIR)/$(PROJ_NAME).bin
 
 flash: 
 	$(STFLASH) write BUILD_DIR/$(PROJ_NAME).bin 0x8000000
