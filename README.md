@@ -9,10 +9,10 @@ Any text editor, make, gcc-arm-none-eabi, st-link
   
 ## Location of files 
 Download STM32CubeL4 MCU Firmware Package from : https://github.com/STMicroelectronics/STM32CubeL4
-	- stm32l476xx.h,stm32l4xx.h,system_stm32l4xx.h => STM32CubeL4-master/Drivers/CMSIS/Device/ST/STM32L4xx/Include
-	- system_stm32l4xx.c => STM32CubeL4-master/Drivers/CMSIS/Device/ST/STM32L4xx/Source/Templates
-	- startup_stm32l476xx.s => STM32CubeL4-master/Drivers/CMSIS/Device/ST/STM32L4xx/Source/Templates/gcc
-	- cmsis_compiler.h,cmsis_gcc.h,cmsis_version.h,core_cm4.h,mpu_armv7.h=> STM32CubeL4-master/Drivers/CMSIS/Include
+- stm32l476xx.h,stm32l4xx.h,system_stm32l4xx.h => STM32CubeL4-master/Drivers/CMSIS/Device/ST/STM32L4xx/Include
+- system_stm32l4xx.c => STM32CubeL4-master/Drivers/CMSIS/Device/ST/STM32L4xx/Source/Templates
+- startup_stm32l476xx.s => STM32CubeL4-master/Drivers/CMSIS/Device/ST/STM32L4xx/Source/Templates/gcc
+- cmsis_compiler.h,cmsis_gcc.h,cmsis_version.h,core_cm4.h,mpu_armv7.h=> STM32CubeL4-master/Drivers/CMSIS/Include
 
 ## Install cross compiler gcc-arm-none-eabi
 Download the latest version (Linux x86_64 Tarball) from the website
