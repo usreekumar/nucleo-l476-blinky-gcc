@@ -1,4 +1,4 @@
-#include "stm32l476xx.h"
+#include "stm32l4xx.h"
 #include "gpio_stm32.h"
 
 /*Initializes the system :
@@ -8,7 +8,7 @@
 void SystemInitialize(void);
 
 /* System clock configs */
-void SystemClock_Init( void )
+void SystemClock_Init( void );
 
 /* Initialization of peripherals*/
-void Peripheral_Init( void )
+void Peripheral_Init( void );

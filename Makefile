@@ -13,13 +13,14 @@ SRCS_DIR += ./Libs/Src
 SRCS_DIR += ./Drivers/CMSIS/Device/Src
 
 # Specifying the build file directories
-BUILD_DIR = ./build
+BUILD_DIR = ./Builds
 
 #Adding -I flags before the include folders to let the compiler know the paths to search 
 INCLUDES := $(addprefix -I, $(INCS_DIR))
 
-# Getting all the files with .c extenstion in the source directories
-SRCS     := $(shell find $(SRCS_DIR) -name *.c)
+# Getting all the files with .c extenstion in the source directories and addding the startup file into it.
+SRCS     = $(shell find $(SRCS_DIR) -name *.c)
+SRCS    += ./Core/Startup/startup_stm32l476xx.s
 
 # -D is a preprocessor flag passed to GCC to define something before compilation. 
 #  SE_STDPERIPH_DRIVER is needed to work with the STM library

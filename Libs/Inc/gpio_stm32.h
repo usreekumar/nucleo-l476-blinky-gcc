@@ -1,4 +1,4 @@
-#include "stm32l476xx.h"
+#include "stm32l4xx.h"
 
 /*
 *	@function		GPIO_SetPinAs_Output
@@ -6,7 +6,7 @@
 *	@return			void
 *	@details		Configure the specified GPIO pin as output
 */
-void GPIO_SetPinAs_Output(GPIO_TypeDef* GPIO_Port, uint8_t GPIO_Pin)
+void GPIO_SetPinAs_Output(GPIO_TypeDef* GPIO_Port, uint8_t GPIO_Pin);
 
 /*
 *	@function		GPIO_SetPinAs_Input
@@ -14,7 +14,7 @@ void GPIO_SetPinAs_Output(GPIO_TypeDef* GPIO_Port, uint8_t GPIO_Pin)
 *	@return			void
 *	@details		Configure the specified GPIO pin as input
 */
-void GPIO_SetPinAs_Input(GPIO_TypeDef* GPIO_Port, uint8_t GPIO_Pin)
+void GPIO_SetPinAs_Input(GPIO_TypeDef* GPIO_Port, uint8_t GPIO_Pin);
 
 /*
 *	@function		GPIO_TogglePin

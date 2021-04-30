@@ -47,7 +47,7 @@ void SystemClock_Init( void )
 	  is cleared, MSIRDY goes low after 6 MSI clock cycles.
 
 	  Waiting till MSIRDY bit (bit 1 of CR) is set by hardware. */
-	while(RCC->CR & RCC_CR_MSIRDY == 0);
+	while((RCC->CR & RCC_CR_MSIRDY) == 0);
 
 	/* These bits are configured by software to choose the frequency range of MSI 
 		0111: range 7 around 8 MHz 
@@ -58,7 +58,7 @@ void SystemClock_Init( void )
 		or when MSI is ready (MSIRDY=1). MSIRANGE must NOT be modified when 
 		MSI is ON and NOT ready (MSION=1 and MSIRDY=0)*/
 	RCC->CR &=  ~RCC_CR_MSIRANGE;
-	RCC->CR != RCC_CR_MSIRANGE_7; 
+	RCC->CR |= RCC_CR_MSIRANGE_7; 
 
 	/* MSIRGSEL: MSI clock range selection
 
@@ -69,7 +69,7 @@ void SystemClock_Init( void )
 	RCC->CR |= RCC_CR_MSIRGSEL;
 
 	/* Waiting till MSIRDY bit (bit 1 of CR) is set by hardware. */
-	while(RCC->CR & RCC_CR_MSIRDY == 0);
+	while((RCC->CR & RCC_CR_MSIRDY) == 0);
 }
 
 /* Initializing the Peripherals 
