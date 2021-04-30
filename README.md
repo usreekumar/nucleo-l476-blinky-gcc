@@ -15,7 +15,7 @@ Download STM32CubeL4 MCU Firmware Package from : https://github.com/STMicroelect
 	- cmsis_compiler.h,cmsis_gcc.h,cmsis_version.h,core_cm4.h,mpu_armv7.h=> STM32CubeL4-master/Drivers/CMSIS/Include
 
 ## Install cross compiler gcc-arm-none-eabi
-- Download the latest version (Linux x86_64 Tarball) from the website
+Download the latest version (Linux x86_64 Tarball) from the website
 	https://developer.arm.com/tools-and-software/open-source-software/developer-tools/gnu-toolchain/gnu-rm/downloads
 
 ## Install st-link
