@@ -34,14 +34,9 @@ BIN_DIR = /home/umamaheswaran/Embedded/tools/gcc-arm-none-eabi-10-2020-q4-major/
 CC 		= $(BIN_DIR)/arm-none-eabi-gcc
 # The GNU objcopy utility copies the contents of an object file to another. 
 OBJCOPY = $(BIN_DIR)/arm-none-eabi-objcopy 
-# Debugger
-GDB     = $(BIN_DIR)/arm-none-eabi-gdb
 
 #Path to st-flash executable
 STFLASH = /home/umamaheswaran/Embedded/tools/stlink/bin/st-flash
-
-#Path to st-util executable
-STUTIL = /home/umamaheswaran/Embedded/tools/stlink/bin/st-util
 
 # Compiler flags
 
@@ -79,7 +74,7 @@ CFLAGS += -mfloat-abi=hard -mfpu=fpv4-sp-d16
 # If you are using retarget, linking like:
 # $ arm-none-eabi-gcc --specs=nosys.specs $(OTHER_LINK_OPTIONS)
 # Ref : https://stackoverflow.com/questions/19419782/exit-c-text0x18-undefined-reference-to-exit-when-using-arm-none-eabi-gcc
-LFLAGS = --specs=nosys.specs -TSTM32L476RGTX_FLASH.ld #-TSTM32L476RGTX_RAM.ld
+LFLAGS = --specs=nosys.specs -TSTM32L476RGTX_FLASH.ld
 
 # Compilations process
 
@@ -96,12 +91,6 @@ $(PROJ_NAME).elf: $(SRCS)
 
 flash: 
 	$(STFLASH) write $(BUILD_DIR)/$(PROJ_NAME).bin 0x8000000
-
-debug:
-	$(GDB) -tui $(BUILD_DIR)/$(PROJ_NAME).elf
-
-stutil:
-	$(STUTIL) -p 4500
 
 # clean will remove all the files in the BUILD_DIR
 clean:

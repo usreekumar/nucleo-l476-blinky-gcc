@@ -9,7 +9,8 @@ int main( void )
 	{
 		GPIO_TogglePin(GPIOA, 5); /*Toggle the pin PA.5*/
 		
-		/* Need to implement a custom delay function*/
+		/* Need to implement a good delay function instead of this
+		   This is only for demo purpose*/
 		while(delay--);
 		delay = DEF_TOGGLE_DELAY;
 
