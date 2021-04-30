@@ -90,7 +90,7 @@ $(PROJ_NAME).elf: $(SRCS)
 	@$(OBJCOPY) -O binary $(BUILD_DIR)/$(PROJ_NAME).elf $(BUILD_DIR)/$(PROJ_NAME).bin
 
 flash: 
-	$(STFLASH) write BUILD_DIR/$(PROJ_NAME).bin 0x8000000
+	$(STFLASH) write $(BUILD_DIR)/$(PROJ_NAME).bin 0x8000000
 
 # clean will remove all the files in the BUILD_DIR
 clean:

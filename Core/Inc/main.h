@@ -6,4 +6,4 @@
 #endif
 
 /*Default toggle delay for LED*/
-#define DEF_TOGGLE_DELAY 1500
+#define DEF_TOGGLE_DELAY 150000
