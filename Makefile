@@ -1,3 +1,6 @@
+# Name of the binariy.
+PROJ_NAME = nucleo_l467rg_blinky
+
 # Specifying the header file directories
 INCS_DIR  = ./Core/Inc
 INCS_DIR += ./Drivers/CMSIS/Inc
@@ -11,25 +14,79 @@ SRCS_DIR += ./Drivers/CMSIS/Device/Src
 
 # Specifying the build file directories
 BUILD_DIR = ./build
-EXECUTABLE = $(BUILD_DIR)/exe
 
 #Adding -I flags before the include folders to let the compiler know the paths to search 
 INCLUDES := $(addprefix -I, $(INCS_DIR))
+
 # Getting all the files with .c extenstion in the source directories
 SRCS     := $(shell find $(SRCS_DIR) -name *.c)
 
-# Use the gcc compiler
-CC = /home/umamaheswaran/Embedded/tools/gcc-arm-none-eabi-10-2020-q4-major/bin/arm-none-eabi-gcc
+# -D is a preprocessor flag passed to GCC to define something before compilation. 
+#  SE_STDPERIPH_DRIVER is needed to work with the STM library
+DEFS    = -DUSE_STDPERIPH_DRIVER
+
+# Tools needed
+BIN_DIR = /home/umamaheswaran/Embedded/tools/gcc-arm-none-eabi-10-2020-q4-major/bin
+
+# The GNU Compiler Collection is an optimizing compiler produced by the GNU Project 
+# supporting various programming languages, 
+CC 		= $(BIN_DIR)/arm-none-eabi-gcc
+# The GNU objcopy utility copies the contents of an object file to another. 
+OBJCOPY = $(BIN_DIR)/arm-none-eabi-objcopy 
+
 #Path to st-flash executable
 STFLASH = /home/umamaheswaran/Embedded/tools/stlink/bin/st-flash
 
-# Compiling and creating an executable with the name exe in the build directoy
-$(EXECUTABLE):
-	$(CC) $(INCLUDES) $(SRCS) -o $@
+# Compiler flags
 
-# Running the executable file
-run:
-	./$(EXECUTABLE)
+CFLAGS  = -ggdb	 # Produces debugging information intended for gdb
+CFLAGS += -O0 	 # -O0 => Optimizations are disbled
+
+#  Ref   		 : https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html
+#
+# -Wall  		 : This enables all the warnings about constructions that some users consider 
+#		   	  	   questionable, and that are easy to avoid
+# -Wextra		 : This enables some extra warning flags that are not enabled by -Wall
+# -Warray-bounds : It warns about subscripts to arrays that are always out of bounds.
+CFLAGS += -Wall -Wextra -Warray-bounds 
+
+#  Ref		  	    : https://gcc.gnu.org/onlinedocs/gcc-4.3.2/gcc/ARM-Options.html
+# -mlittle-endian   : Generate code for a processor running in little-endian mode. 
+# -mthumb           : Generate code for the Thumb instruction set. The default  
+#					  is to use the 32-bit ARM instruction set.
+# -mcpu			    : This specifies the name of the target ARM processor. GCC uses this name 
+#					  to determine what kind of instructions it can emit when generating assembly code.
+# -mthumb-interwork : Generate code which supports calling between the ARM and Thumb instruction sets.
+CFLAGS += -mlittle-endian -mthumb -mcpu=cortex-m4 -mthumb-interwork
+
+# Ref 			    : https://embeddedartistry.com/blog/2017/10/11/demystifying-arm-floating-point-compiler-options/
+# -mfloat-abi=hard  : The -mfloat-abi=<name> option is used to select which ARM ABI is used.
+#					  The hard option enables full hardware floating-point support.
+# 					  When using the hard or softfp float-abi, you should specify the FPU type 
+#					  using the -mfpu compiler flag.
+# -mfpu=fpv4-sp-d16 : This flag specifies what floating-point hardware (or emulation) is 
+#					  available on your target architecture. Cortex M4F ahs fpv4-sp-d16 
+CFLAGS += -mfloat-abi=hard -mfpu=fpv4-sp-d16
+
+# Linker Related stuff. Tells which linker file to use.
+LFLAGS = -TSTM32L476RGTX_FLASH.ld
+
+# Compilations process
+
+# A phony target is one that is not really the name of a file; rather it is just a 
+# name for a recipe to be executed when you make an explicit request. 
+
+.PHONY: $(PROJ_NAME)
+$(PROJ_NAME): $(PROJ_NAME).elf
+
+$(PROJ_NAME).elf: $(SRCS)
+	$(CC) $(INCLUDES) $(DEFS) $(CFLAGS) $(LFLAGS) $^ -o BUILD_DIR/$@
+	$(OBJCOPY) -O ihex BUILD_DIR/$(PROJ_NAME).elf   $(PROJ_NAME).hex
+	$(OBJCOPY) -O binary BUILD_DIR/$(PROJ_NAME).elf $(PROJ_NAME).bin
+
+flash: 
+	$(STFLASH) write BUILD_DIR/$(PROJ_NAME).bin 0x8000000
+
 # clean will remove all the files in the BUILD_DIR
 clean:
 	rm -f $(BUILD_DIR)/*
