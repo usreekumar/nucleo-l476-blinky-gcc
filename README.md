@@ -1,5 +1,5 @@
-# nucleo-l476-blinky-gcc
-This project is intended to be used as a tutorial to start working on embedded systems programming without IDE. 
+# nucleol476-gcc-tutorial
+This project is intended to be used as a tutorial to start working on embedded systems programming without IDE. This code will use only the bare minimum external files required for blinking the on board LED. Code and the Makefile that comes with the project is heavily commented for clear understanding. Installation steps of the required tools are described below. 
 
 ## My System Details
 OS : Ubuntu 20.04
