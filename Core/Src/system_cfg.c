@@ -18,7 +18,6 @@ void SystemClock_Init( void )
 	/*Clock configuration register (RCC_CFGR)
 	  Or ing with 0 is fine. Since 00 is default. MSI = 00*/
 	RCC->CFGR |= RCC_CFGR_SW_MSI; /*System Clock Switch*/
-	while(RCC->CFGR & (3 << 2)); /*Wait till SWS bits are 00. ie MSI. By default 0*/
 
 	/* These bits are configured by software to choose the frequency 
 		range of MSI 0111: range 7 around 8 MHz */
